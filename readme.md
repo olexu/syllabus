@@ -12,7 +12,11 @@ Application allows to add/edit/search syllabi
 - PostgreSQL 12
 - Microsoft Visual Studio Community 2019
   - GitHub Extension for Visual Studio
-- Microsoft Visual Studio Code
+- Microsoft Visual Studio Code with extensions
+  - ESLint 
+  - Prettier - Code formatter
+  - TypeScript Import Sorter
+  - Material Icon Theme
 - Node.js
   - yarn installed globally
 - .NET Core SDK (.NET Core 3.1)
