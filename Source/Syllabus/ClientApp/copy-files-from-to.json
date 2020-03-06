@@ -1,0 +1,11 @@
+{
+    "copyFiles": [
+        {
+            "from": "/build/index.html",
+            "to": "../Views/Home/Index.cshtml"
+        }
+    ],
+    "copyFilesSettings": {
+        "whenFileExists": "overwrite"
+    }
+}
