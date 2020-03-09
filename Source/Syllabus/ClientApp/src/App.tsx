@@ -169,16 +169,6 @@ function PageFooter() {
                 <div className="d-flex flex-row-reverse">
                     <div className="text-light">
                         <h6>Контакти</h6>
-                        <h6>
-                            Телефони: <br />
-                            380 (44) 204 86 10
-                            <br />
-                            380 (44) 204 92 85
-                        </h6>
-                        <h6>
-                            Пошта: <br />
-                            kafedra@acts.kpi.ua
-                        </h6>
                     </div>
                 </div>
             </div>
