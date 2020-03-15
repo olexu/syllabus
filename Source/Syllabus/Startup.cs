@@ -25,8 +25,8 @@ namespace Syllabus
         {
             // Ensure DB exists
             var connectionString = Configuration.GetValue<string>("AppSettings:ConnectionString");
-            EnsureDatabase.For.PostgresqlDatabase(connectionString);
-            var upgrader = DeployChanges.To.PostgresqlDatabase(connectionString)
+            EnsureDatabase.For.MySqlDatabase(connectionString);
+            var upgrader = DeployChanges.To.MySqlDatabase(connectionString)
                 .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())
                 .LogToConsole()
                 .WithTransaction()

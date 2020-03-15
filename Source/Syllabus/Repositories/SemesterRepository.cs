@@ -1,9 +1,8 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
-using Npgsql;
+using MySql.Data.MySqlClient;
 using Syllabus.Models;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 
 namespace Syllabus.Repositories
@@ -19,10 +18,10 @@ namespace Syllabus.Repositories
 
         public async Task<IEnumerable<Semester>> GetAllAsync()
         {
-            using (IDbConnection dbConnection = new NpgsqlConnection(_connectionString))
+            using (var dbConnection = new MySqlConnection(_connectionString))
             {
                 dbConnection.Open();
-                return await dbConnection.QueryAsync<Semester>("SELECT * FROM \"SEMESTERS\"");
+                return await dbConnection.QueryAsync<Semester>("CALL SEMESTERS_GETALL");
             }
         }
     }
