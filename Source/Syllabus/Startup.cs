@@ -40,6 +40,7 @@ namespace Syllabus
                 throw new Exception(result.Error.Message, result.Error);
 
             services.AddScoped<ISemesterRepository, SemesterRepository>();
+            services.AddScoped<IFormRepository, FormRepository>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
