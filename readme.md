@@ -2,36 +2,36 @@
 Application allows to add/edit/search syllabi
 
 ## Used technologies
-- PostgreSQL 12
-- ASP.NET Core 3.1
-- React 16
-- Bootstap 4
-- Typescript 3
+- MySQL 8+
+- ASP.NET Core 3.1+
+- React 16+
+- Bootstap 4+
+- Typescript 3.7+
 
 ## Development environment requirements
-- PostgreSQL 12
+- MySQL 8
 - Microsoft Visual Studio Community 2019
-  - GitHub Extension for Visual Studio
-- Microsoft Visual Studio Code with extensions
-  - ESLint 
-  - Prettier - Code formatter
-  - TypeScript Import Sorter
-  - Material Icon Theme
-- Node.js
-  - yarn installed globally
-- .NET Core SDK (.NET Core 3.1)
+- Microsoft Visual Studio Code
+- Node.js 12
 
-## How to run a project in Debug mode
-- Clone repository
-- Run next command in console: `yarn`
-- Go to Source/Syllabus/ClientApp
-- Run next command in console: `yarn`
-- Open Solution in Visual Studio 2019
-- Run it (F5)
-- Open ClientApp folder in Visual Studio Code
-- Modify frontend code (Live reloading works)
+## How to debug/modify code
+1. Install **yarn** globally. Run next command in console: `npm install yarn -g`
+2. Open Visual Studio and install 'GitHub Extension for Visual Studio'
+3. Clone repository (using Visual Studio)
+4. Open repository root folder and run next command in console: `yarn`
+5. Open Source/Syllabus/ClientApp folder and run next command in console: `yarn`
+6. Open solution in Visual Studio
+7. Check appSetting.json for valid connectionString to database
+8. Open ClientApp folder in Visual Studio Code
+9. Install below extensions for VS Code (VS should promt to install reccomendations)
+   - ESLint 
+   - Prettier - Code formatter
+   - TypeScript Import Sorter
+   - Material Icon Theme
+10. Start debug mode in Visual Studio
+11. Modify frontend code (Live reloading works)
 
 ## How to create a Release
 - Clone repository
-- Run next command in console: `yarn`
-- Run next command in console: `yarn build`
+- Open repository root folder. Run next command in console: `yarn`
+- In the same folder run next command: `yarn build`

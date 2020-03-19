@@ -25,9 +25,9 @@ namespace Syllabus
         {
             // Ensure DB exists
             var connectionString = Configuration.GetValue<string>("AppSettings:ConnectionString");
-            EnsureDatabase.For.PostgresqlDatabase(connectionString);
-            var upgrader = DeployChanges.To.PostgresqlDatabase(connectionString)
-                .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())                
+            EnsureDatabase.For.MySqlDatabase(connectionString);
+            var upgrader = DeployChanges.To.MySqlDatabase(connectionString)
+                .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())
                 .LogToConsole()
                 .WithTransaction()
                 .Build();
@@ -35,11 +35,12 @@ namespace Syllabus
             DatabaseUpgradeResult result = null;
             if (upgrader.IsUpgradeRequired())
                 result = upgrader.PerformUpgrade();
-            
-            if(result != null && !result.Successful)
+
+            if (result != null && !result.Successful)
                 throw new Exception(result.Error.Message, result.Error);
 
             services.AddScoped<ISemesterRepository, SemesterRepository>();
+            services.AddScoped<IFormRepository, FormRepository>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
@@ -53,9 +54,7 @@ namespace Syllabus
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
             else
             {
                 app.UseExceptionHandler("/Error");
@@ -82,7 +81,6 @@ namespace Syllabus
                 });
             }
             else
-            {
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllerRoute(
@@ -91,7 +89,6 @@ namespace Syllabus
 
                     endpoints.MapFallbackToController("Index", "Home");
                 });
-            }
         }
     }
 }
