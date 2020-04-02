@@ -20,7 +20,7 @@ namespace Syllabus.Repositories
         {
             using (var dbConnection = new MySqlConnection(_connectionString))
             {
-                dbConnection.Open();
+                await dbConnection.OpenAsync();
                 return await dbConnection.QueryAsync<Semester>("CALL SEMESTERS_GETALL");
             }
         }

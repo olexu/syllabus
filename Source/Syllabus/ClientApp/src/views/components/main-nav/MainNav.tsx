@@ -1,41 +1,87 @@
 import React from "react";
-import { Button, Container, Form, FormControl, Nav, Navbar, NavItem } from "react-bootstrap";
 import { getTranslate } from "react-localize-redux";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import Link from "@material-ui/core/Link/Link";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import MenuIcon from "@material-ui/icons/Menu";
+import SchoolIcon from "@material-ui/icons/School";
 
 import RouteEnum from "../../../constants/RouteEnum";
 import * as keys from "../../../localization/keys";
 import IStore from "../../../models/IStore";
-import LanguageToggle from "./components/LanguageToggle";
+import LanguageToggle from "./components/LanguageMenu";
 
-interface IProps {}
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        logo: {
+            marginRight: theme.spacing(2),
+        },
+        links: {
+            flexGrow: 1,
+            "& > * + *": {
+                margin: theme.spacing(2),
+            },
+        },
+    }),
+);
 
-const MainNav: React.FC<IProps> = (props: React.PropsWithChildren<IProps>) => {
+const MainNav = () => {
     const translate = getTranslate(useSelector((state: IStore) => state.localize));
+    const classes = useStyles();
+
+    const [state, setState] = React.useState(false);
+
+    const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+        if (event.type === "keydown" && ((event as React.KeyboardEvent).key === "Tab" || (event as React.KeyboardEvent).key === "Shift")) {
+            return;
+        }
+        setState(open);
+    };
 
     return (
-        <Navbar bg="light" expand="lg">
-            <Container>
-                <Navbar.Brand>
-                    <img src="./img/logo.png" alt="logo" />
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href={RouteEnum.Home}>{translate(keys.Syllabus)}</Nav.Link>
-                        <Nav.Link href={RouteEnum.Teachers}>{translate(keys.Teachers)}</Nav.Link>
-                    </Nav>
-                    <Form inline>
-                        <LanguageToggle />
-                    </Form>
-                    <Form inline>
-                        <FormControl type="text" placeholder={translate(keys.Search) as string} className="mr-sm-2" />
-                        <Button variant="primary">{translate(keys.Search) as string}</Button>
-                    </Form>
-                </Navbar.Collapse>
+        <AppBar position="static">
+            <Container maxWidth="lg">
+                <Toolbar>
+                    <Hidden smDown>
+                        <SchoolIcon fontSize="large" className={classes.logo} />
+                        <Typography className={classes.links}>
+                            <Link component={RouterLink} to={RouteEnum.Home} color="inherit">
+                                {translate(keys.Syllabus)}
+                            </Link>
+                            <Link component={RouterLink} to={RouteEnum.Teachers} color="inherit">
+                                {translate(keys.Teachers)}
+                            </Link>
+                        </Typography>
+                    </Hidden>
+                    <Hidden mdUp>
+                        <Typography className={classes.links}>
+                            <IconButton onClick={toggleDrawer(true)} color="inherit">
+                                <MenuIcon />
+                            </IconButton>
+                            <Drawer anchor={"left"} open={state} onClose={toggleDrawer(false)} onClick={toggleDrawer(false)}>
+                                <Button component={RouterLink} to={RouteEnum.Home} color="inherit">
+                                    {translate(keys.Syllabus)}
+                                </Button>
+                                <Button component={RouterLink} to={RouteEnum.Teachers} color="inherit">
+                                    {translate(keys.Teachers)}
+                                </Button>
+                            </Drawer>
+                        </Typography>
+                    </Hidden>
+                    <LanguageToggle />
+                </Toolbar>
             </Container>
-        </Navbar>
+        </AppBar>
     );
 };
 
